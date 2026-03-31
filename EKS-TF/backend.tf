@@ -1,8 +1,18 @@
 terraform {
   backend "s3" {
-    bucket  = "dev-harshal-tf-bucket-123"
-    key     = "End-to-End-Kubernetes-DevSecOps-Tetris-Project/EKS-TF/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+    bucket         = "dev-harshal-tf-bucket-123"
+    region         = "us-east-1"
+    key            = "EKS/terraform.tfstate"        # ← Different key than Jenkins!
+    encrypt        = true
+    dynamodb_table = "dev-harshal-tf-dynamodb"
+  }
+
+  required_version = ">=1.5.7"
+
+  required_providers {
+    aws = {
+      version = ">= 6.23.0"
+      source  = "hashicorp/aws"
+    }
   }
 }
